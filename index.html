@@ -1,0 +1,152 @@
+<script>
+let start = [
+    `整体思路是通过$handle来达到$target的目的。`,
+    `目标是解决$target的问题。`,
+    `我们要把战略和$target绑定。`,
+    `不能忽略$perf，这是一切的起点。`
+]
+
+let construction = [ 
+    `要明确使用$standard作为衡量$perf的标准。`,
+    `因为要$reason，促使我们需要用$handle来解决$target问题，以及整合$object和$object。`,
+    `我们需要依托$handle来为$object赋能。`,
+    `站在$object的角度上，要通过$handle来发挥$target的作用。`,
+    `亮点是$perf，优势是$handle能力，面临的挑战是$obstacle。`,
+    `$handle和$handle是达成$target的组要路径，如果还能做到$handle，那么还会助力$perf方面的提升。`
+];
+
+let conclution = [
+    `希望大家能引以为戒。`,
+    `还要补充一点，大家同时还要关注如何达成$target的目的。`,
+    `还有，不要忘了$reason。`,
+    `大家共勉。`
+];
+
+let action = '复盘,赋能,加持,沉淀,倒逼,落地,串联,协同,反哺,兼容,包装,重组,履约,响应,量化,布局,联动,细分,梳理,输出,加速,共建,支撑,融合,聚合,集成,对标,聚焦,抓手,拆解,抽象,摸索,提炼,打通,打透,吃透,迁移,分发,分装,辐射,围绕,复用,渗透,扩展,开拓,皮实,共创,共建,解耦,集成,对齐,拉齐,对焦,给到,拿到,死磕'.split(',')
+let word = '漏斗,中台,闭环,打法,纽带,矩阵,刺激,规模,场景,维度,格局,形态,生态,体系,认知,玩法,体感,感知,调性,心智,战役,合力,赛道,基因,模型,载体,横向,通道,补位,试点,布局,联动,价值,细分,梳理,提炼,支撑,解法,脑暴,分层,心力, 感知度,方法论,组合拳,引爆点,点线面,精细化,差异化,平台化,结构化,影响力,耦合性,便捷性,一致性,端到端,短平快,护城河,体验感,颗粒度,生命周期,价值转化,强化认知,资源倾斜,完善逻辑,抽离透传,复用打法,商业模式,快速响应,定性定量,关键路径,去中心化,结果导向,垂直领域,归因分析,体验度量,信息屏障,资源整合'.split(',');
+
+
+let reason = [
+    '满足用户需求',
+    '解决行业痛点',
+    '搭建信息桥梁',
+    '让结果可量化'
+]
+
+let target = [
+    '持久收益',
+    '产品赋能',
+    '运营能力加持',
+    '引爆行业',
+    '构造闭环',
+    '构建生态',
+    '撬动产业',
+    '差异化竞争',
+    '品效合一'
+]
+
+let object = [
+    '行业',
+    '产品',
+    '领域',
+    '标准域',
+    '公司战略',
+    '体系'
+]
+
+let obstacle = [
+    '信息屏障',
+    '固有思维',
+    '认知局限',
+    '感知障碍',
+    '信息茧房',
+    '行业束缚'
+]
+
+let standard = [
+    '体验度量',
+    '用户感知',
+    '用研分析',
+    '行业评价',
+    '交付能力',
+    '需求满足度',
+    '匹配度',
+    '效果验证',
+    '品牌影响力'
+]
+
+let perf = [
+    '满意度',
+    '占有率',
+    '侵入度',
+    '完成率',
+    '全面性',
+    '用户体验',
+    '产品契合度',
+    '具体效果'
+]
+
+let handle = [
+    '差异化',
+    '领域细分',
+    '链路打通',
+    '体系化思考',
+    '模块化',
+    '颗粒度',
+    '系统抽象',
+    '资源倾斜',
+    '赛道细分'
+]
+
+let placeholder = {reason, handle, target, object, obstacle, standard, perf};
+
+
+function randomGet(arr, kick = false) {
+    const index = Math.floor(Math.random() * arr.length);
+    const ret = arr[index];
+    if (kick) {
+        arr.splice(index, 1);
+    }
+    return ret;
+}
+
+function buildHandle() {
+    return randomGet(action, 1) + randomGet(word, 1);
+}
+
+function buildSentence(str) {
+
+    Object.keys(placeholder).forEach(ph => {
+        const regex = new RegExp(`\\$${ph}`);
+        while(regex.test(str)) {
+            str = str.replace(regex, ph == 'handle' ? buildHandle() : randomGet(placeholder[ph], 1));
+        }
+    });
+
+    return str;
+    
+}
+
+function generate(){
+    let content = "";
+    let times = 6;
+
+    // start
+    content += buildSentence(randomGet(start));
+
+    // body
+    while(times--) {
+        content += buildSentence(randomGet(construction, 1));
+    }
+
+    // end
+    content += buildSentence(randomGet(conclution));
+
+    return content;
+   
+}
+</script>
+<div>张一鸣最讨厌的汇报</div>
+<script>
+    document.write(generate());
+</script>
